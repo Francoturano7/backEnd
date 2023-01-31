@@ -5,20 +5,21 @@ class ProductManager {
     }
 
     getProducts() {
-        return this.products
+        return console.log(this.products)
     }
 
 
-    addProduct(title, description, price, thumbnail, id, stock) {
-        if (!title || !description || !price || !thumbnail || !id || !stock) {
+    addProduct(title, description, price, thumbnail, code, stock) {
+        if (!title || !description || !price || !thumbnail || !code        || !stock) {
             return console.log("Todos los campos son obligatorios")
         } else {
-            const existeId = this.#validarId(id)
-            if (existeId) {
+            const existeCodigo = this.#validarCodigo(code)
+            if (existeCodigo) {
                 console.log("Ya hay un producto con este ID")
             } else {
                 const product = {
                     id: this.#generarId(),
+                    code,
                     title,
                     description,
                     price,
@@ -54,16 +55,21 @@ class ProductManager {
         return this.products.find(product => product.id === id)
 
     }
+    #validarCodigo(code) {
+        return this.products.find(product => product.code === code)
+
+    }
 }
 
 
 const product = new ProductManager()
-console.log(product.getProducts())
+product.getProducts()
 product.addProduct("Iphone 8", "Celular", 500, "./iphone", 4, 100)
-console.log(product.getProducts())
+product.getProducts()
 product.addProduct("Tablet 8", "Tablet", 800, "./tablet", 3, 500)
-console.log(product.getProducts())
-console.log(product.getProductById(2))
+product.getProducts()
+product.getProductById(1)
+product.getProductById(38)
 
 
 
